@@ -1,0 +1,40 @@
+# Arquivos e diretórios do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+*.egg
+
+# Arquivos de ambiente virtual
+env/
+.virtualenv/
+
+# Arquivos de configuração do Jupyter Notebook
+.ipynb_checkpoints/
+
+# Arquivos e diretórios do Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Diretórios e arquivos específicos do macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Arquivos de log e banco de dados local
+*.log
+*.sqlite
+
+# Diretórios de build e distribuição
+build/
+dist/
