@@ -16,8 +16,8 @@ Este livro é ideal para quem busca uma abordagem prática para aprender e aplic
 ### Acompanhe o desenvolvimento
 
 
-[Instagram](https://www.instagram.com/rogerioalencarfilho/)
-[Linkedin](https://www.linkedin.com/in/rogeriofilho/)
-[IoT na Prática e-book](https://docs.google.com/document/d/1xgYLi9yhRQzyfPZAtuGuicmYRaJ3O99XMD4G8wc1ioM/edit?usp=sharing)
+[Instagram](https://www.instagram.com/rogerioalencarfilho/)  
+[Linkedin](https://www.linkedin.com/in/rogeriofilho/)  
+[IoT na Prática e-book](https://docs.google.com/document/d/1xgYLi9yhRQzyfPZAtuGuicmYRaJ3O99XMD4G8wc1ioM/edit?usp=sharing)  
 
 ---
