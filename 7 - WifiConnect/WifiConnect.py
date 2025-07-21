@@ -1,3 +1,5 @@
+"""Conecta o ESP32 a uma rede Wi-Fi especificada."""
+
 import network
 
 # Configurações da rede Wi-Fi
@@ -5,7 +7,8 @@ SSID = 'NomeDaRedeWiFi'
 PASSWORD = 'SenhaDaRedeWiFi'
 
 # Função para conectar à rede Wi-Fi
-def connect_to_wifi():
+def connect_to_wifi() -> None:
+    """Realiza a conexão à rede utilizando SSID e senha configurados."""
     wifi = network.WLAN(network.STA_IF)  # Modo Estação (Cliente)
     
     if not wifi.isconnected():

@@ -1,3 +1,5 @@
+"""Aciona compressão da lixeira ao detectar distância abaixo do limite."""
+
 import machine
 import time
 from machine import Pin, PWM
@@ -26,19 +28,19 @@ def read_distance():
     
     return distance
 
-# Loop principal
-while True:
-    distance = read_distance()
-    print("Distância:", distance, "cm")
-    
-    # Limite de enchimento da lixeira
-    if distance < 20: 
-        # Aciona o mecanismo de compressão
-        servo_pin.duty(512)  
-        # Mantém o servo motor acionado por 5 segundos
-        time.sleep(5)  
-        # Desliga o servo motor
-        servo_pin.duty(0) 
+def main() -> None:
+    """Lê a distância e ativa o servo quando a lixeira enche."""
+    while True:
+        distance = read_distance()
+        print("Distância:", distance, "cm")
 
-    # Aguarda 10 segundos antes da próxima leitura
-    time.sleep(10)  
+        if distance < 20:  # distância inferior a 20 cm indica lixeira cheia
+            servo_pin.duty(512)
+            time.sleep(5)
+            servo_pin.duty(0)
+
+        time.sleep(10)
+
+
+if __name__ == "__main__":
+    main()

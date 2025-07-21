@@ -1,3 +1,5 @@
+"""Publica a intensidade de luz de um poste inteligente via MQTT."""
+
 import machine
 import time
 from umqtt.simple import MQTTClient
@@ -16,7 +18,7 @@ CONFIG = {
     "ca_file": "/certs/ca.pem"
 }
 
-def connect_wifi(ssid, password):
+def connect_wifi(ssid: str, password: str) -> None:
     station = network.WLAN(network.STA_IF)
     station.active(True)
     station.connect(ssid, password)
@@ -24,14 +26,16 @@ def connect_wifi(ssid, password):
         pass
     print("Conectado à Wi-Fi")
 
-def sub_callback(topic, msg):
+def sub_callback(topic, msg) -> None:
+    """Lida com mensagens recebidas para acionar o LED."""
     print((topic, msg))
     if topic == bytes(CONFIG["subscribe_topic"], 'utf-8') and msg == b'on':
         led_pin.value(1)
     elif topic == bytes(CONFIG["subscribe_topic"], 'utf-8') and msg == b'off':
         led_pin.value(0)
 
-def main():
+def main() -> None:
+    """Configura o MQTT e envia a intensidade de luz periodicamente."""
     connect_wifi(CONFIG["wifi_ssid"], CONFIG["wifi_password"])
     
     with open(CONFIG["cert_file"], "rb") as c, open(CONFIG["key_file"], "rb") as k, open(CONFIG["ca_file"], "rb") as ca:

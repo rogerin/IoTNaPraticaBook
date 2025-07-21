@@ -1,3 +1,5 @@
+"""Envia alerta quando o nível de água atinge valor crítico."""
+
 import machine
 import time
 
@@ -5,14 +7,16 @@ import time
 # Pino digital para o sensor de nível de água
 water_level_pin = machine.Pin(25, machine.Pin.IN)  
 
-# Loop principal
-while True:
-    # Leitura do sensor de nível de água
-    water_level = water_level_pin.value() 
+def main() -> None:
+    """Monitoramento contínuo do sensor de água."""
+    while True:
+        water_level = water_level_pin.value()
 
-    # Nível de água alto (possível enchente)
-    if water_level == 1:
-        print("Alerta: Nível de Água Elevado - Possível Enchente")
-    
-    # Aguarda 5 minutos antes da próxima leitura
-    time.sleep(300)  
+        if water_level == 1:  # 1 indica nível alto de água
+            print("Alerta: Nível de Água Elevado - Possível Enchente")
+
+        time.sleep(300)  # espera 5 minutos
+
+
+if __name__ == "__main__":
+    main()

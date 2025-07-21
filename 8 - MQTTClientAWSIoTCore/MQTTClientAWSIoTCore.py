@@ -1,19 +1,22 @@
+"""Exemplo de envio de leituras de um LDR para o AWS IoT Core via MQTT."""
+
 import machine
 import time
 from umqtt.simple import MQTTClient
 import network
 
 # Configurações do AWS IoT Core
+# Substitua pelas suas informações de endpoint e tópico
 AWS_ENDPOINT = "your-aws-endpoint"
 CLIENT_ID = "your-client-id"
 TOPIC = "your/topic"
 
-# Certificados e chaves
+# Certificados e chaves para autenticação TLS
 CERT_FILE = "/path/to/certfile.crt"
 KEY_FILE = "/path/to/keyfile.key"
 
 # Conecta ao Wi-Fi
-def connect_wifi():
+def connect_wifi() -> None:
     sta_if = network.WLAN(network.STA_IF)
     if not sta_if.isconnected():
         print('Conectando ao Wi-Fi...')
@@ -24,7 +27,8 @@ def connect_wifi():
     print('Conexão Wi-Fi estabelecida.')
 
 # Configura o MQTT
-def setup_mqtt():
+def setup_mqtt() -> MQTTClient:
+    """Configura o cliente MQTT utilizando certificados locais."""
     client = MQTTClient(
         CLIENT_ID, 
         AWS_ENDPOINT, 
@@ -41,29 +45,27 @@ def setup_mqtt():
 
 # Configuração dos pinos
 # Pino analógico para o LDR
-ldr_pin = machine.ADC(machine.Pin(34)) 
+ldr_pin = machine.ADC(machine.Pin(34))
 # Pino digital para o LED
-led_pin = machine.Pin(2, machine.Pin.OUT) 
+led_pin = machine.Pin(2, machine.Pin.OUT)
 
-connect_wifi()
-mqtt_client = setup_mqtt()
+def main() -> None:
+    """Envia leituras do LDR para o AWS IoT Core continuamente."""
+    connect_wifi()
+    mqtt_client = setup_mqtt()
 
-# Loop principal
-while True:
-    # Leitura analógica do LDR
-    ldr_value = ldr_pin.read()  
-    # Normalização para a faixa do LED (0-1)
-    led_intensity = ldr_value / 4095  
-    # Liga o LED   
-    led_pin.value(1) 
-    # Mantém o LED ligado proporcionalmente à intensidade lida
-    time.sleep(led_intensity)
-    # Desliga o LED
-    led_pin.value(0)  
-    # Mantém o LED desligado proporcionalmente à intensidade lida
-    time.sleep(1 - led_intensity) 
+    while True:
+        ldr_value = ldr_pin.read()
+        led_intensity = ldr_value / 4095
+        led_pin.value(1)
+        time.sleep(led_intensity)
+        led_pin.value(0)
+        time.sleep(1 - led_intensity)
 
-    # Envia dados para o AWS IoT Core
-    payload = '{{"ldr_value": {}}}'.format(ldr_value)
-    mqtt_client.publish(TOPIC, payload)
-    print('Dados enviados: ' + payload)
+        payload = '{{"ldr_value": {}}}'.format(ldr_value)
+        mqtt_client.publish(TOPIC, payload)
+        print('Dados enviados: ' + payload)
+
+
+if __name__ == "__main__":
+    main()

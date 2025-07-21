@@ -1,3 +1,5 @@
+"""Sensor de nível de água que envia alertas MQTT."""
+
 import machine
 import time
 from umqtt.simple import MQTTClient
@@ -15,7 +17,7 @@ CONFIG = {
     "ca_file": "/certs/ca.pem"
 }
 
-def connect_wifi():
+def connect_wifi() -> None:
     """ Estabelece conexão Wi-Fi. """
     station = network.WLAN(network.STA_IF)
     station.active(True)
@@ -24,7 +26,7 @@ def connect_wifi():
         pass
     print("Conectado à Wi-Fi")
 
-def setup_mqtt():
+def setup_mqtt() -> MQTTClient:
     """ Configura o cliente MQTT com segurança SSL e retorna o cliente. """
     with open(CONFIG["cert_file"], "rb") as c, open(CONFIG["key_file"], "rb") as k, open(CONFIG["ca_file"], "rb") as ca:
         client = MQTTClient(CONFIG["client_id"], CONFIG["mqtt_broker"], port=8883,
@@ -32,7 +34,7 @@ def setup_mqtt():
     client.connect()
     return client
 
-def main():
+def main() -> None:
     """ Função principal para monitoramento de nível de água e envio de alertas. """
     connect_wifi()
     client = setup_mqtt()
