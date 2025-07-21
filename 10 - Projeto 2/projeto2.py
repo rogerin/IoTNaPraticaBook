@@ -1,3 +1,5 @@
+"""Envia dados de gases e temperatura de um bueiro inteligente via MQTT."""
+
 import machine
 from umqtt.simple import MQTTClient
 import network
@@ -14,7 +16,7 @@ CONFIG = {
     "ca_file": "/certs/ca.pem"
 }
 
-def connect_wifi():
+def connect_wifi() -> None:
     station = network.WLAN(network.STA_IF)
     station.active(True)
     station.connect(CONFIG["wifi_ssid"], CONFIG["wifi_password"])
@@ -22,13 +24,14 @@ def connect_wifi():
         pass
     print("Conectado à Wi-Fi")
 
-def setup_mqtt():
+def setup_mqtt() -> MQTTClient:
     with open(CONFIG["cert_file"], "rb") as c, open(CONFIG["key_file"], "rb") as k, open(CONFIG["ca_file"], "rb") as ca:
         client = MQTTClient(CONFIG["client_id"], CONFIG["mqtt_broker"], port=8883,
                             ssl=True, ssl_params={"cert": c.read(), "key": k.read(), "ca_certs": ca.read()})
     return client
 
-def main():
+def main() -> None:
+    """Realiza as leituras de sensores e publica no broker."""
     connect_wifi()
     client = setup_mqtt()
     client.connect()

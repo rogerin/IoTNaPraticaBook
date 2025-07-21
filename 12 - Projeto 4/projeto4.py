@@ -1,3 +1,5 @@
+"""Controla lixeira inteligente e envia dados via MQTT."""
+
 import time
 from machine import Pin, PWM
 import network
@@ -34,7 +36,7 @@ def read_distance():
     distance = (pulse_duration * 0.0343) / 2
     return distance
 
-def connect_wifi():
+def connect_wifi() -> None:
     station = network.WLAN(network.STA_IF)
     station.active(True)
     station.connect(CONFIG["wifi_ssid"], CONFIG["wifi_password"])
@@ -42,7 +44,7 @@ def connect_wifi():
         pass
     print("Conectado à Wi-Fi")
 
-def setup_mqtt():
+def setup_mqtt() -> MQTTClient:
     with open(CONFIG["cert_file"], "rb") as c, open(CONFIG["key_file"], "rb") as k, open(CONFIG["ca_file"], "rb") as ca:
         client = MQTTClient(CONFIG["client_id"], CONFIG["mqtt_broker"], port=8883,
                             ssl=True, ssl_params={"cert": c.read(), "key": k.read(), "ca_certs": ca.read()})
@@ -58,7 +60,8 @@ def sub_cb(topic, msg):
         time.sleep(5)
         servo_pin.duty(0)
 
-def main():
+def main() -> None:
+    """Envia leituras do sensor ultrassônico e responde a comandos."""
     connect_wifi()
     client = setup_mqtt()
 
