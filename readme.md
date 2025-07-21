@@ -1,23 +1,27 @@
-
 # IoT na Prática: Projetos Inteligentes para um Mundo Conectado
-## Resumo do Livro "IoT na Prática: Projetos Inteligentes para um Mundo Conectado"
 
-Este livro é um guia prático para entusiastas e estudantes da Internet das Coisas (IoT). Ele apresenta projetos práticos que aplicam tecnologias e conceitos da IoT em cenários reais. O conteúdo inclui:
+Este repositório reúne o código-fonte e os materiais de apoio do e-book **IoT na Prática**. Aqui você encontrará exemplos em MicroPython para ESP32 e projetos completos descritos no livro.
 
-- **Projetos Inteligentes:** Instruções passo a passo para construir projetos como postes inteligentes, bueiros de monitoramento ambiental, estacionamentos inteligentes, lixeiras com compressão automática e sistemas de detecção de chuva para prevenção de inundações.
-  
-- **Tecnologia:** Uso do ESP32 e programação em MicroPython para conectar dispositivos IoT à internet e enviar dados para plataformas como AWS IoT Core.
+## Estrutura do repositório
+- `book.md` – versão em Markdown do e-book.
+- `1 - Basic` a `8 - MQTTClientAWSIoTCore` – exemplos de código para estudos rápidos.
+- `9 - Projeto 1` a `13 - Projeto 5` – projetos completos apresentados no livro.
+- `assets` – imagens utilizadas no e-book e nas descrições dos exemplos.
 
-- **Conectividade com AWS IoT Core:** Guia sobre como configurar o ESP32 para comunicação segura com a AWS IoT Core, permitindo o envio de dados do sensor para a nuvem.
+Cada pasta contém um script `.py` com comentários para facilitar a execução em placas ESP32.
 
-Este livro é ideal para quem busca uma abordagem prática para aprender e aplicar IoT em projetos reais, com foco na integração de hardware, software e serviços de nuvem.
+## Executando os exemplos
+1. Instale o firmware do [MicroPython](https://micropython.org/download/esp32/) no seu ESP32.
+2. Conecte-se ao dispositivo com `ampy`, `rshell` ou outra ferramenta de sua preferência.
+3. Envie o script desejado para a placa.
+4. Reinicie o ESP32 para observar o resultado.
 
----
+## Saiba mais
+O conteúdo detalhado está disponível em [`book.md`](book.md) e na [versão online do e-book](https://docs.google.com/document/d/1xgYLi9yhRQzyfPZAtuGuicmYRaJ3O99XMD4G8wc1ioM/edit?usp=sharing).
+
 ### Acompanhe o desenvolvimento
-
-
-[Instagram](https://www.instagram.com/rogerioalencarfilho/)  
-[Linkedin](https://www.linkedin.com/in/rogeriofilho/)  
-[IoT na Prática e-book](https://docs.google.com/document/d/1xgYLi9yhRQzyfPZAtuGuicmYRaJ3O99XMD4G8wc1ioM/edit?usp=sharing)  
+- [Instagram](https://www.instagram.com/rogerioalencarfilho/)
+- [Linkedin](https://www.linkedin.com/in/rogeriofilho/)
 
 ---
+
